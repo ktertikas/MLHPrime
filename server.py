@@ -18,6 +18,18 @@ class UserPageHandler(RequestHandler):
         print "GET /user request from", self.request.remote_ip
         self.render("index.html")
 
+class LinkTagServiceHandler(RequestHandler):
+    def get(self):
+        print "GET /tag request from", self.request.remote_ip
+        link = self.get_argument('link','')
+        # Code for classification
+        tag = 'something'
+        self.write({'status':'ok','tag':tag})
+
+class LinksList(RequestHandler):
+    pass
+
+
 class LoginHandler(RequestHandler):
 
     def post(self):
@@ -25,20 +37,32 @@ class LoginHandler(RequestHandler):
 
         username = self.get_argument('user','')
         password = self.get_argument('pass','')
-        res = db['boats'].find({
-            'phone': phone,
-            'password': password
+        res = db['user'].find({
+            'user': username,
+            'pass': password
         }).count()
         if res == 1:
             self.write({'status':'ok'})
-        self.write({'status': 'ok'})
+        else:
+            self.write({'status': 'not found'})
 
 
 class SignUpHandler(RequestHandler):
 
     def post(self):
         print "POST /signup request from", self.request.remote_ip
-        self.write({'status': 'ok'})
+        user_exists = db['users'].find({
+            'email' : self.get_argument('email','')
+        }).count()
+        if user_exists == 1:
+            db['users'].insert_one({
+                'email': self.get_argument('email',''),
+                'username': self.get_argument('user',''),
+                'pass': self.get_argument('pass',''),
+            })
+            self.write({'status': 'ok'})
+        else:
+            self.write({'status': 'ok'})
 
 
 handlers = [
@@ -46,6 +70,7 @@ handlers = [
     (r"/user", UserPageHandler),
     (r"/login", LoginHandler),
     (r"/signup", SignUpHandler),
+    (r"/tag", LinkTagServiceHandler),
 ]
 
 settings = dict(
