@@ -1,0 +1,154 @@
+/* Apply a natural box layout model to all elements */
+* { 
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box; 
+}
+
+figure {
+	/*position: relative;*/
+	/*float: right;*/
+	/*left: 100px;*/
+	width: 100%;
+	min-width: 600px;
+	margin-top: -120px;
+}
+
+h1 {
+	width: 70%;
+	margin: 0 auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+	font-size: 24px;
+}
+
+.title, .subtitle, .caption, .label, .legend, figure {
+	font-family: baskerville, serif;
+}
+
+.title, .subtitle, .label, .legend {
+	text-transform: uppercase;
+}
+
+.title {
+	font-size: 18px;
+	width: 400px;
+	text-align: center;
+	display: block;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+
+.title .small {
+	font-size: 12px;
+}
+
+.subtitle {
+	font-size: 16px;
+	width: 50%;
+	min-width: 400px;
+	margin-top: 16px;
+	text-align: center;
+}
+
+.subtitle.left {
+	float: left;
+}
+
+.subtitle.right {
+	/*float: right;*/
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+
+.caption {
+	position: relative;
+	top: -170px;
+	width: 320px;
+	display: block;
+	margin: 0 auto;
+	font-style: oblique;
+	font-size: 12px;
+}
+
+.caption p {
+	margin: 0;
+	text-indent: 12px;
+}
+
+.canvas {
+	font-family: 'Cabin', sans-serif;
+ 	font-size: 14px;
+ 	fill: #474747;
+ 	font-weight: normal;
+ 	width: 100%;
+}
+
+.wedge {
+	stroke: #aaa;
+	stroke-width: 1px;
+	/*shape-rendering: crispEdges;*/
+}
+
+.label {
+	font-size: 12px;
+}
+
+.Leisure {
+	/*fill: rgb(198, 226, 255);*/
+	fill: #7AA343;
+}
+
+.Sports {
+	/*fill: rgb(50,50,50);*/
+	fill: #72AA94;
+}
+
+.Technology {
+	/*fill: rgb(252,112,147);*/
+	fill: #436832;
+}
+
+.legend {
+	width: 400px;
+	height: 50px;
+	padding: 0 20px;
+	/*left: 100px;*/
+	display: block;
+	position: relative;
+	margin: 0 auto;
+	top: 40px;
+	text-align: center;
+}
+.legend-canvas {
+	width: 350px;
+}
+
+.slider {
+	width: 400px;
+	display: block;
+	position: relative;
+	/*left: 100px;*/
+	margin: 0 auto;
+	/* left: 50px;  hacky */
+	bottom: 25px;
+}
+.footer {
+  color: white;
+  padding-top: 5px;
+  border-top: 1px solid gray;
+  font-size: 12px;
+  height: 100px;
+  width: 100%;
+  margin-top: 100px;
+  background: black;
+  text-align: center;
+}
+.footer p {
+  line-height: 20px;
+}
+.footer img {
+	vertical-align: middle;
+}
