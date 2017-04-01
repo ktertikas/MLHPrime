@@ -3,6 +3,7 @@ import tornado.web
 import tornado.websocket
 from tornado.web import RequestHandler
 from pymongo import MongoClient
+import os
 
 client = MongoClient('localhost', 27017)
 
