@@ -353,10 +353,7 @@ Chart.slider = function( minVal, maxVal, step ) {
 		.attr('step', 0.001)
 		.attr('value', maxVal);
 
-		console.log("Change detected!");
-
 	d3.select(".slider").on("change", function() {
-		console.log("Change detected!");
 	  var value = Math.round(this.value);
 
 	  d3.selectAll('.wedgeGroup')
