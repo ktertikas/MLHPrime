@@ -60,7 +60,7 @@ function create_user(username, password, email){
 	    success: function(data, textStatus, jqXHR)
 	    {
 	    	if(data['status']==1){
-	    		localStorage.setItem("tosemail", username);
+	    		localStorage.setItem("tosemail", email);
 	    		localStorage.setItem("toscookie", data['user']);
 	    		window.location = url;
 	    	}
