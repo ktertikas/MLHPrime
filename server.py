@@ -13,7 +13,7 @@ import json
 client = MongoClient('localhost', 27017)
 db = client['mlhprime']
 
-link_classifier = LinkClassifier()
+# link_classifier = LinkClassifier()
 
 
 class BaseHandler(RequestHandler):
@@ -104,20 +104,20 @@ class SaveLinkHandler(RequestHandler):
         link = self.get_argument('link', '')
         email = self.get_argument('email', '')
 
-        res_user = db['users'].find({ 'email': email })
-        user_id  = res_user[0]['_id']
-        res_link = db['links'].find({ 'userid': user_id, 'link':link })
+        # res_user = db['users'].find({ 'email': email })
+        # email  = res_user[0]['email']
+        res_link = db['links'].find({ 'email': email, 'link':link })
         metadata = get_metadata(link)
 
         if res_link.count() != 1:
             data = {
-                'userid': user_id,
+                'email': email,
                 'link': link,
-                'title': result[0],
-                'text': result[1],
-                'image': result[2],
-                'date': datetime.datetime.now(),
-                'tag': link_classifier.classify_link_lsvm(link)
+                'title': metadata[0],
+                'text': metadata[1],
+                'image': metadata[2],
+                'date': datetime.datetime.now().strftime('%m/%d/%Y'),
+                # 'tag': link_classifier.classify_link_lsvm(link)
             }
             db['links'].insert_one(data)
             self.write({'status': 1, 'message': 'link saved', 'data': data})
@@ -130,9 +130,9 @@ class LinksListHandler(RequestHandler):
         print 'GET /getlinks request from', self.request.remote_ip
 
         email = self.get_argument('email', '')
-        res_user = db['users'].find({ 'email': email })
-        user_id  = res_user[0]['_id']
-        res_links = db['links'].find({ 'userid': user_id })
+        # res_user = db['users'].find({ 'email': email })
+        # email  = res_user[0]['email']
+        res_links = db['links'].find({ 'email': email })
         self.write({'status': 1, 'message': 'link exists', 'data': json.dumps(res_links)})
 
 handlers = [
