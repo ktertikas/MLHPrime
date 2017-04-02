@@ -120,7 +120,7 @@ class SaveLinkHandler(RequestHandler):
                 # 'tag': link_classifier.classify_link_lsvm(link)
             }
             print data
-            # db['links'].insert_one(data)
+            result_db = db['links'].insert_one(data)
             self.write({'status': 1, 'message': 'link saved', 'data': data})
         else:
             self.write({'status': 0, 'message': 'link exists'})
