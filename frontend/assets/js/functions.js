@@ -79,7 +79,7 @@ function get_user_links(user_email){
 	var data = "email="+user_email;
 
 	$.ajax({
-	    url : url+"/",
+	    url : url+"/getlinks",
 	    type: "POST",
 	    data : data,
 	    success: function(data, textStatus, jqXHR)
