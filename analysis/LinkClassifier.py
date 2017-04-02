@@ -54,6 +54,7 @@ class LinkClassifier():
         documents_titles = []
         self.documents_labels = []
         for category, cat_link in self.category_links.items():
+            print category
             result = requests.get(cat_link)
             soup = BeautifulSoup(result.text, "lxml-xml")
             links_list = soup.findAll("item")
