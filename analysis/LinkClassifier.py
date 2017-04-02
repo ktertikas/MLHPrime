@@ -49,7 +49,7 @@ class LinkClassifier():
     def train_model(self):
         documents = []
         documents_titles = []
-        documents_labels = []
+        self.documents_labels = []
         for category, cat_link in self.category_links.items():
             result = requests.get(cat_link)
             soup = BeautifulSoup(result.text, "lxml-xml")
