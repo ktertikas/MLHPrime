@@ -80,7 +80,7 @@ class SignUpHandler(RequestHandler):
 
 handlers = [
     (r"/", HomePageHandler),
-    (r"/user", UserPageHandler),
+    # (r"/user", UserPageHandler),
     (r"/login", LoginHandler),
     (r"/signup", SignUpHandler),
     (r"/tag", LinkTagServiceHandler),
