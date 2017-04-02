@@ -85,4 +85,4 @@ class LinkClassifier():
 
     def classify_link(self,link):
         doc = self.link_to_doc(link)
-        return self.classify_doc(doc)
+        return self.classify_doc(doc)[0]
