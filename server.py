@@ -13,7 +13,7 @@ import json
 client = MongoClient('localhost', 27017)
 db = client['mlhprime']
 
-# link_classifier = LinkClassifier()
+link_classifier = LinkClassifier()
 
 
 class BaseHandler(RequestHandler):
