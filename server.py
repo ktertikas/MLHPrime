@@ -22,11 +22,11 @@ class HomePageHandler(BaseHandler):
 
     def get(self):
         print 'GET / request from', self.request.remote_ip
-        if not self.current_user:
-            self.redirect('/login')
-            return
+        # if not self.current_user:
+        #     self.redirect('/login')
+        #     return
         user = tornado.escape.xhtml_escape(self.get_current_user())
-        self.render("index.html", user=user)
+        self.render("index.html") #user=user
 
 
 class LinkTagServiceHandler(RequestHandler):
@@ -59,8 +59,9 @@ class LoginHandler(RequestHandler):
             'pass': password
         })
         if res.count() == 1:
-            self.set_secure_cookie('user', res['username'])
-            self.redirect('/')
+            self.set_secure_cookie('user', res[0]['username'])
+            self.write({'status': 1, 'message': 'already registered', 'cookie' : self.get_secure_cookie()})
+            # self.redirect('/')
         else:
             pass
 
@@ -69,7 +70,7 @@ class LogoutHandler(BaseHandler):
 
     def get(self):
         self.clear_cookie('user')
-        self.redirect('/')
+        # self.redirect('/')
 
 
 class SignUpHandler(RequestHandler):
@@ -86,7 +87,8 @@ class SignUpHandler(RequestHandler):
                 'pass': self.get_argument('pass', ''),
             })
             self.set_secure_cookie('user', self.get_argument('user'))
-            self.redirect('/')
+            # self.redirect('/')
+            self.write({'status': 1, 'message': 'already registered', 'cookie' : self.get_secure_cookie()})
         else:
             self.write({'status': 0, 'message': 'already registered'})
 
