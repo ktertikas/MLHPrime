@@ -86,9 +86,9 @@ function get_user_links(user_email){
 	    {
 	    	if(data['status']==1){
 	    		console.log("Data is: "+data['data']);
-	    		var userdata = data['data'];
+	    		var userdata = JSON.parse(data['data']);
 	    		//Loop through data
-	    		for(var i = 0; i < userdata.length; ++i){
+	    		for(var i = 0; i < userdata.length; i++){
 	    			var category = userdata[i].tag;
 	    			console.log("Category: "+category);
 		    		$("#"+category).append('<li><div class="md-list-addon-element"><img src="'+userdata[i].image+'" alt="Thumbnail"></div>');
@@ -98,7 +98,6 @@ function get_user_links(user_email){
 	                $("#"+category).append(' bottom:30px;"><input id="checkedItem" value="'+userdata[i].title);
 	                $("#"+category).append('" type="checkbox" data-md-icheck /></div></li>');
 	    		}
-	    		//Append to list
 
 	    	}
 	    	else{
