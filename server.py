@@ -25,7 +25,7 @@ class HomePageHandler(BaseHandler):
         if not self.current_user:
             self.redirect('/login')
             return
-        user = tornado.escape.xhtml_escape(self.current_user)
+        user = tornado.escape.xhtml_escape(self.get_current_user())
         self.render("index.html", user=user)
 
 
@@ -57,9 +57,9 @@ class LoginHandler(RequestHandler):
         res = db['users'].find({
             'email': email,
             'pass': password
-        }).count()
-        if res == 1:
-            self.set_secure_cookie('user', username)
+        })
+        if res.count() == 1:
+            self.set_secure_cookie('user', res['username'])
             self.redirect('/')
         else:
             pass
