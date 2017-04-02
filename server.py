@@ -43,7 +43,7 @@ class HomePageHandler(BaseHandler):
 class TagHandler(RequestHandler):
     def post(self):
         result = get_metadata(self.get_argument('link', ''))
-        self.write({'title': result[0], 'text': result[1], 'image':result[2]})
+        self.write({'status':'1', 'title': result[0], 'text': result[1], 'image':result[2]})
 
 class LoginHandler(RequestHandler):
 
