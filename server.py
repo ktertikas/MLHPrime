@@ -60,7 +60,7 @@ class LoginHandler(RequestHandler):
         })
         if res.count() == 1:
             self.set_secure_cookie('user', res[0]['username'])
-            self.write({'status': 1, 'message': 'logged in successfully', 'cookie' : self.get_secure_cookie()})
+            self.write({'status': 1, 'message': 'logged in successfully', 'cookie' : self.get_secure_cookie('user')})
             # self.redirect('/')
         else:
             pass
@@ -88,7 +88,7 @@ class SignUpHandler(RequestHandler):
             })
             self.set_secure_cookie('user', self.get_argument('user'))
             # self.redirect('/')
-            self.write({'status': 1, 'message': 'registered successfully', 'cookie' : self.get_secure_cookie()})
+            self.write({'status': 1, 'message': 'registered successfully', 'cookie' : self.get_secure_cookie('user')})
         else:
             self.write({'status': 0, 'message': 'already registered'})
 
