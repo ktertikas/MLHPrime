@@ -144,6 +144,7 @@ function save_user_link(link, email){
 	    data : data,
 	    success: function(data, textStatus, jqXHR)
 	    {
+	    	console.log("Status: "+data['status']);
 	    	if(data['status']==1){
 	    		//Append to list
 	    		var category = data['data']['category'];
