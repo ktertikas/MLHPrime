@@ -1,4 +1,4 @@
-# MLHPrime
+# TagYourLinks
 
 ## The Idea
 
