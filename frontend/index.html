@@ -672,7 +672,7 @@
                 if(field_value.length>6){
                     //Make request to server
                     email = localStorage.getItem('tosemail');
-                    save_user_link(field_value, );
+                    save_user_link(field_value, email);
                 }
                 else if(field_value.length==0){
                     $('#preview').hide();
@@ -692,7 +692,7 @@
     <!--Creating the Rose Chart-->
     <script>
     // Load the JSON data (temporarily):
-    d3.json( 'datanew.json', function( data ) {
+    d3.json( 'assets/datanew.json', function( data ) {
         var rose = Chart.rose(),
                 height = 500,
                 format = d3.time.format('%m/%Y'),
