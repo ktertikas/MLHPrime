@@ -17,7 +17,22 @@ chrome.runtime.onInstalled.addListener(function() {
     }
 
     //Show bootbox dialog
-    
+    /*bootbox.confirm({
+        message: "This is a confirm with custom button text and color! Do you like it?",
+        buttons: {
+            confirm: {
+                label: 'Yes',
+                className: 'btn-success'
+            },
+            cancel: {
+                label: 'No',
+                className: 'btn-danger'
+            }
+        },
+        callback: function (result) {
+            console.log('This was logged in the callback: ' + result);
+        }
+    });*/
 
     var retVal = confirm("Tag Your Stuff would like to add your bookmarks to its clustering platform. Would you like to continue?");
     if( retVal == true ){
