@@ -91,11 +91,7 @@ function get_user_links(user_email){
 	    		for(var i = 0; i < userdata.length; i++){
 	    			var category = userdata[i].tag;
 	    			console.log("Category: "+category);
-		    		$("#"+category).append('<li><div class="md-list-addon-element"><img src="'+userdata[i].image+'" alt="Thumbnail"></div>');
-	                $("#"+category).append('<div class="md-list-content"><a href="'+userdata[i].link+' target="_blank"><span class="md-list-heading">');
-	                $("#"+category).append(userdata[i].title+'</span></a><span class="uk-text-small uk-text-muted">');
-	                $("#"+category).append(userdata[i].text+'</span></div><div style="float:right; position:relative; bottom:30px;">');
-	                $("#"+category).append('<input id="checkedItem" value="'+userdata[i].title+'" type="checkbox" data-md-icheck /></div></li>');
+		    		$("#"+category).append('<li><div class="md-list-addon-element"><img src="'+userdata[i].image+'" alt="Thumbnail"></div><div class="md-list-content"><a href="'+userdata[i].link+' target="_blank"><span class="md-list-heading">'+userdata[i].title+'</span></a><span class="uk-text-small uk-text-muted">'+userdata[i].text+'</span></div><div style="float:right; position:relative; bottom:30px;"><input id="checkedItem" value="'+userdata[i].title+'" type="checkbox" data-md-icheck /></div></li>');
 	    		}
 
 	    	}
@@ -160,11 +156,7 @@ function save_user_link(link, email){
 	    	if(data['status']==1){
 	    		//Append to list
 	    		var category = data['data']['tag'];
-	    		$("#"+category).append('<li><div class="md-list-addon-element"><img src="'+data['data']['image']+'" alt="Thumbnail"></div>');
-	                $("#"+category).append('<div class="md-list-content"><a href="'+data['data']['link']+' target="_blank"><span class="md-list-heading">');
-	                $("#"+category).append(data['data']['title']+'</span></a><span class="uk-text-small uk-text-muted">');
-	                $("#"+category).append(data['data']['text']+'</span></div><div style="float:right; position:relative; bottom:30px;">');
-	                $("#"+category).append('<input id="checkedItem" value="'+data['data']['title']+'" type="checkbox" data-md-icheck /></div></li>');
+	    		$("#"+category).append('<li><div class="md-list-addon-element"><img src="'+data['data']['image']+'" alt="Thumbnail"></div><div class="md-list-content"><a href="'+data['data']['link']+' target="_blank"><span class="md-list-heading">'+data['data']['title']+'</span></a><span class="uk-text-small uk-text-muted">'+data['data']['text']+'</span></div><div style="float:right; position:relative; bottom:30px;"><input id="checkedItem" value="'+data['data']['title']+'" type="checkbox" data-md-icheck /></div></li>');
 
                 $("#preview").hide();
                 $("#link_field").val("");
