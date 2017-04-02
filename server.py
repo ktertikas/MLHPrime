@@ -127,7 +127,8 @@ class SaveLinkHandler(RequestHandler):
             }
             print data
             result_db = db['links'].insert_one(data)
-            print {'status': 1, 'message': 'link saved', 'data': data}
+            # print {'status': 1, 'message': 'link saved', 'data': data}
+            del data['_id']
             self.write( json.dumps( {'status': 1, 'message': 'link saved', 'data': data} ))
         else:
             self.write({'status': 0, 'message': 'link exists'})
