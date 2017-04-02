@@ -502,6 +502,12 @@
     </script>
 
     <script>
+
+        //Check if cookie is set
+        if(localStorage.getItem("toscookie")==null){
+            window.href.location = "/login"
+        }
+        
         $(function() {
             var $switcher = $('#style_switcher'),
                 $switcher_toggle = $('#style_switcher_toggle'),
@@ -531,10 +537,10 @@
                 var field_value = $('#link_field').val();
                 if(field_value.length>6){
                     //Make request to server
-
+                    get_link_details(field_value);
                 }
-                else{
-
+                else if(field_value.length==0){
+                    $('#preview').hide();
                 }
             }
         }
