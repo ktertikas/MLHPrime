@@ -658,8 +658,8 @@
 
         //Checking the link
         function checkLink(myButton){
+            var field_value = $('#link_field').val();
             if(myButton=="tagging"){
-                var field_value = $('#link_field').val();
                 if(field_value.length>6){
                     //Make request to server
                     get_link_details(field_value);
