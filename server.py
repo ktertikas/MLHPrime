@@ -12,7 +12,7 @@ class HomePageHandler(RequestHandler):
 
     def get(self):
         print "GET / request from", self.request.remote_ip
-        self.render("index.html")
+        self.render("frontend/index.html")
 
 class UserPageHandler(RequestHandler):
     def get(self):
