@@ -16,6 +16,9 @@ chrome.runtime.onInstalled.addListener(function() {
         });
     }
 
+    //Show bootbox dialog
+    
+
     var retVal = confirm("Tag Your Stuff would like to add your bookmarks to its clustering platform. Would you like to continue?");
     if( retVal == true ){
       //Send to platform
