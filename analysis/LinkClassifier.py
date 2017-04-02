@@ -106,7 +106,7 @@ class LinkClassifier():
 
     def classify_link_lsvm(self,link):
         doc = self.link_to_doc(link)
-        return self.lbl.classes_[self.classify_doc_lsvm(doc)]
+        return self.lbl.classes_[self.classify_doc_lsvm(doc)][0]
 
     def classify_doc_lsvm(self,document):
         processed_text = self.preprocessing(document)

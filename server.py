@@ -31,8 +31,8 @@ class HomePageHandler(BaseHandler):
 
 class LinkTagServiceHandler(RequestHandler):
 
-    def get(self):
-        print 'GET /tag request from', self.request.remote_ip
+    def post(self):
+        print 'POST /tag request from', self.request.remote_ip
         link = self.get_argument('link', '')
         tag = link_classifier.classify_link_lsvm(link)
         self.write({'status': 'ok', 'tag': tag})
