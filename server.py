@@ -117,12 +117,12 @@ class SaveLinkHandler(RequestHandler):
 
         if res_link.count() != 1:
             data = {
-                'email': email,
-                'link': link,
-                'title': metadata[0],
-                'text': metadata[1],
-                'image': metadata[2],
-                'date': datetime.datetime.now().strftime('%m/%d/%Y'),
+                'email': str(email),
+                'link': str(link),
+                'title': str(metadata[0]),
+                'text': str((metadata[1]),
+                'image': str(metadata[2]),
+                'date': str(datetime.datetime.now().strftime('%m/%d/%Y')),
                 # 'tag': link_classifier.classify_link_lsvm(link)
             }
             print data
