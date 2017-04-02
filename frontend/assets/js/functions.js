@@ -14,7 +14,7 @@ function login(username, password){
 	    	if(data['status']==1){
 	    		localStorage.setItem("tosemail", username);
 	    		localStorage.setItem("toscookie", data['user']);
-	    		window.location.href = "index.html";
+	    		window.location.href = url;
 	    	}
 	    	else{
 	    		alert("Error signing in. Please try again.");
@@ -58,7 +58,7 @@ function create_user(username, password, email){
 	    	if(data['status']==1){
 	    		localStorage.setItem("tosemail", username);
 	    		localStorage.setItem("toscookie", data['user']);
-	    		window.location.href = "index.html";
+	    		window.location.href = url;
 	    	}
 	    	else{
 	    		alert("Error signing in. Please try again.");
