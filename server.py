@@ -14,7 +14,7 @@ import json
 client = MongoClient('localhost', 27017)
 db = client['mlhprime']
 
-# link_classifier = LinkClassifier()
+link_classifier = LinkClassifier()
 
 class JSONEncoder(json.JSONEncoder):
     def default(self, o):
@@ -123,7 +123,7 @@ class SaveLinkHandler(RequestHandler):
                 'text': metadata[1],
                 'image': metadata[2],
                 'date': datetime.datetime.now().strftime('%m/%d/%Y'),
-                # 'tag': link_classifier.classify_link_lsvm(link)
+                'tag': link_classifier.classify_link_lsvm(link)
             }
             print data
             result_db = db['links'].insert_one(data)
@@ -141,7 +141,10 @@ class LinksListHandler(RequestHandler):
         email = self.get_argument('email', '')
         # res_user = db['users'].find({ 'email': email })
         # email  = res_user[0]['email']
-        res_links = db['links'].find({ 'email': email })
+        res_links = list(db['links'].find({ 'email': email }))
+        for i,aa in enumerate(res_links):
+            del res_links[i]['_id']
+
         self.write({'status': 1, 'message': 'link exists', 'data': json.dumps(res_links)})
 
 handlers = [
