@@ -36,14 +36,17 @@ function login(username, password){
 }
 
 function logout(){
-	$.ajax({
+	//Remove cookie
+	localStorage.removeItem("toscookie");
+	window.location.href = url;
+	/*$.ajax({
 	    url : url+"/logout",
 	    type: "POST",
 	    error: function (jqXHR, textStatus, errorThrown)
 	    {
 	 		//Catch error in case we want to show a popup dialog
 	    }
-	});
+	});*/
 }
 
 function create_user(username, password, email){
