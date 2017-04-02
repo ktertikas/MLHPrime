@@ -5,11 +5,12 @@ from tornado.web import RequestHandler
 from pymongo import MongoClient
 import os
 from analysis.LinkClassifier import LinkClassifier
+from analysis.Metadata import get_metadata
 
 client = MongoClient('localhost', 27017)
 db = client['mlhprime']
 
-# link_classifier = LinkClassifier()
+link_classifier = LinkClassifier()
 
 
 class BaseHandler(RequestHandler):
@@ -28,19 +29,21 @@ class HomePageHandler(BaseHandler):
         # user = tornado.escape.xhtml_escape(self.get_current_user())
         self.render("index.html") #user=user
 
-
 class LinkTagServiceHandler(RequestHandler):
 
     def get(self):
         print 'GET /tag request from', self.request.remote_ip
         link = self.get_argument('link', '')
-        tag = link_classifier.classify_link(link)
+        tag = link_classifier.classify_link_lsvm(link)
         self.write({'status': 'ok', 'tag': tag})
-
 
 class LinksList(RequestHandler):
     pass
 
+class MetadataHandler(RequestHandler):
+    def post(self):
+        result = get_metadata(self.get_argument('link', ''))
+        self.write({'title': result[0], 'text': result[1], 'image':result[2]})
 
 class LoginHandler(RequestHandler):
 
@@ -96,6 +99,7 @@ class SignUpHandler(RequestHandler):
 handlers = [
     (r"/", HomePageHandler),
     # (r"/user", UserPageHandler),
+    (r"/meta", MetadataHandler),
     (r"/login", LoginHandler),
     (r"/signup", SignUpHandler),
     (r"/logout", LogoutHandler),

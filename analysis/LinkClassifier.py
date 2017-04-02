@@ -13,6 +13,9 @@ from nltk.stem import SnowballStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 
+from sklearn.svm import SVC, LinearSVC
+from sklearn.preprocessing import LabelEncoder
+
 class LinkClassifier():
 
     category_links = {"sports": "http://feeds.bbci.co.uk/sport/football/rss.xml?edition=int",
@@ -70,6 +73,16 @@ class LinkClassifier():
         # Naive Bayes Multinomial Classifier
         self.clf = MultinomialNB().fit(self.feature_vector, self.documents_labels)
 
+    def train_model_lsvm(self):
+        # We convert Date, Trap, Species to numerical (both train and test datasets)
+        self.lbl = LabelEncoder()
+        # Species
+        self.lbl.fit(self.documents_labels)
+        label_data = self.lbl.transform(self.documents_labels)
+
+        self.clf_lsvm = LinearSVC()
+        self.clf_lsvm.fit(self.feature_vector, label_data)
+
     def link_to_doc(self,link):
         soup = BeautifulSoup(requests.get(link).content, "lxml")
         ignore_list = ["script", "style"]
@@ -86,3 +99,13 @@ class LinkClassifier():
     def classify_link(self,link):
         doc = self.link_to_doc(link)
         return self.classify_doc(doc)[0]
+
+    def classify_link_lsvm(self,link):
+        doc = self.link_to_doc(link)
+        return self.lbl.classes_[self.classify_doc_lsvm(doc)]
+
+    def classify_doc_lsvm(self,document):
+        processed_text = self.preprocessing(document)
+        new_feature_vector = self.vectorizer.transform([processed_text])
+        predicted = clf1.predict(new_feature_vector)
+        return predicted
