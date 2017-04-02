@@ -7,15 +7,23 @@ import os
 from analysis.LinkClassifier import LinkClassifier
 
 client = MongoClient('localhost', 27017)
-link_classifier = LinkClassifier()
+# link_classifier = LinkClassifier()
 
-class HomePageHandler(RequestHandler):
+class BaseHandler(RequestHandler):
+    def get_current_user(self):
+        return self.get_secure_cookie("user")
+
+class HomePageHandler(BaseHandler):
 
     def get(self):
         print "GET / request from", self.request.remote_ip
-        self.render("index.html")
+        if not self.current_user:
+            self.redirect("/login")
+            return
+        user = tornado.escape.xhtml_escape(self.current_user)
+        self.render("index.html", user=user)
 
-class UserPageHandler(RequestHandler):
+class UserPageHandler(BaseHandler):
     def get(self):
         print "GET /user request from", self.request.remote_ip
         self.render("login.html")
@@ -31,6 +39,7 @@ class LinksList(RequestHandler):
     pass
 
 
+
 class LoginHandler(RequestHandler):
 
     def post(self):
@@ -38,15 +47,21 @@ class LoginHandler(RequestHandler):
 
         username = self.get_argument('user','')
         password = self.get_argument('pass','')
+
         res = db['user'].find({
             'user': username,
             'pass': password
         }).count()
         if res == 1:
-            self.write({'status':'ok'})
+            self.set_secure_cookie("user", username)
+            self.redirect("/")
         else:
-            self.write({'status': 'not found'})
+            pass
 
+class LogoutHandler(BaseHandler):
+    def get(self):
+        self.clear_cookie("user")
+        self.redirect(self.get_argument("next", "/"))
 
 class SignUpHandler(RequestHandler):
 
@@ -79,6 +94,8 @@ handlers = [
 settings = dict(
     template_path=os.path.join(os.path.dirname(__file__), "frontend"),
     static_path=os.path.join(os.path.dirname(__file__), "static"),
+    cookie_secret = "__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
+    login_url = "/login",
 )
 
 application = tornado.web.Application(handlers, **settings)
