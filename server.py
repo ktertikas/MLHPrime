@@ -79,7 +79,7 @@ class SignUpHandler(RequestHandler):
         user_exists = db['users'].find({
             'email': self.get_argument('email', '')
         }).count()
-        if user_exists == 1:
+        if user_exists != 1:
             db['users'].insert_one({
                 'email': self.get_argument('email', ''),
                 'username': self.get_argument('user', ''),
