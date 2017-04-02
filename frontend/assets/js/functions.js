@@ -44,6 +44,10 @@ function get_user_stats(session_id, user_email){
 
 }
 
+function get_link_details(session, user_email){
+	
+}
+
 function change_user_category(session_id, user_email, link){
 
 }
