@@ -1,6 +1,6 @@
 
 //Configs
-url = "ec2-52-15-166-59.us-east-2.compute.amazonaws.com"
+url = "http://ec2-52-15-166-59.us-east-2.compute.amazonaws.com:8000"
 
 function login(username, password){
 	var data = "email="+username+"&pass="+password;
