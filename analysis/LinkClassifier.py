@@ -1,0 +1,91 @@
+import requests
+from bs4 import BeautifulSoup
+
+import os
+import nltk
+import re
+import numpy as np
+import pandas as pd
+from nltk import word_tokenize
+from nltk.tokenize import WordPunctTokenizer
+from nltk.corpus import stopwords
+from nltk.stem import SnowballStemmer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+
+class LinkClassifier():
+
+    category_links = {"sports": "http://feeds.bbci.co.uk/sport/football/rss.xml?edition=int",
+                    "politics":"http://feeds.bbci.co.uk/news/politics/rss.xml",
+                     "technology":"https://www.technologyreview.com/topnews.rss",
+                     "finance":"http://feeds.bbci.co.uk/news/business/rss.xml",
+                     "education":"http://feeds.bbci.co.uk/news/education/rss.xml?edition=uk",
+                     "entertainment":"http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml?edition=uk"}
+
+    def __init__(self):
+        self.init_preprocessing()
+        print 'Training model...'
+        self.train_model()
+        print 'Model trained'
+
+    # Cleaning, tokenization, stemming of text
+    def init_preprocessing(self):
+        word_pattern = re.compile("^[^\d\W]+$")
+        stop_words = set(stopwords.words('english'))
+        word_length = 2
+        ps = SnowballStemmer("english")
+
+    def preprocessing(self,document):
+        tokens = WordPunctTokenizer().tokenize(document)
+        tokens = list(map(lambda x: x.lower(), tokens))
+        tokens = [i for i in tokens if re.match(word_pattern, i) and i not in stop_words and len(i)>word_length]
+        tokens = [ps.stem(i) for i in tokens]
+        tokens_text = ' '.join(tokens)
+        return tokens_text
+
+    # Create featurevector
+    def create_featurevector(self,document):
+        tfidf_vectorizer = TfidfVectorizer(max_df=0.8, min_df=0.1)
+        tfidf_matrix = tfidf_vectorizer.fit_transform(document)
+        return tfidf_matrix, tfidf_vectorizer
+
+    def train_model(self):
+        documents = []
+        documents_titles = []
+        documents_labels = []
+        for category, cat_link in self.category_links.items():
+            result = requests.get(cat_link)
+            soup = BeautifulSoup(result.text, "lxml-xml")
+            links_list = soup.findAll("item")
+            for item in links_list:
+                link = item.link.text
+                soup2 = BeautifulSoup(requests.get(link).content, "lxml")
+                ignore_list = ["script", "style"]
+                for ignore in soup2(ignore_list):
+                    ignore.extract()
+                processed_text = self.preprocessing(soup2.body.get_text())
+                documents.append(processed_text)
+                documents_titles.append(soup2.title.text)
+                documents_labels.append(category)
+
+        self.feature_vector, self.vectorizer = self.create_featurevector(documents)
+
+        # Naive Bayes Multinomial Classifier
+        self.clf = MultinomialNB().fit(self.feature_vector, self.documents_labels)
+
+    def link_to_doc(self,link):
+        soup = BeautifulSoup(requests.get(link).content, "lxml")
+        ignore_list = ["script", "style"]
+        for ignore in soup(ignore_list):
+            ignore.extract()
+        return soup.body.get_text()
+
+    def classify_doc(self,document):
+        processed_text = self.preprocessing(document)
+        new_feature_vector = self.vectorizer.transform([processed_text])
+        predicted = self.clf.predict(new_feature_vector)
+        return predicted
+
+    def classify_link(self,link):
+        doc = self.link_to_doc(link)
+        return self.classify_doc(doc)

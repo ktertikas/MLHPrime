@@ -4,9 +4,10 @@ import tornado.websocket
 from tornado.web import RequestHandler
 from pymongo import MongoClient
 import os
+from analysis.LinkClassifier import LinkClassifier
 
 client = MongoClient('localhost', 27017)
-
+link_classifier = LinkClassifier()
 
 class HomePageHandler(RequestHandler):
 
@@ -23,8 +24,7 @@ class LinkTagServiceHandler(RequestHandler):
     def get(self):
         print "GET /tag request from", self.request.remote_ip
         link = self.get_argument('link','')
-        # Code for classification
-        tag = 'something'
+        tag = link_classifier.classify_link(link)
         self.write({'status':'ok','tag':tag})
 
 class LinksList(RequestHandler):
@@ -82,7 +82,7 @@ settings = dict(
 )
 
 application = tornado.web.Application(handlers, **settings)
-
+print 'Server is running...'
 application.listen(8000, '0.0.0.0')
 
 tornado.ioloop.IOLoop.instance().start()
