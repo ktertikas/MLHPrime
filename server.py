@@ -75,7 +75,7 @@ handlers = [
 ]
 
 settings = dict(
-    template_path=os.path.join(os.path.dirname(__file__), "templates"),
+    template_path=os.path.join(os.path.dirname(__file__), "frontend"),
     static_path=os.path.join(os.path.dirname(__file__), "static"),
 )
 
