@@ -118,7 +118,9 @@ function get_link_details(link){
 	    		$('#preview').show();
 	    		$('#plink_title').html(title);
 	    		$('#plink_description').html(text);
-	    		$('#plink_image').html(thumb);
+	    		$('#plink_img').attr("src", thumb);
+
+	    		console.log("Image link: "+thumb);
 	    	}
 	    	else{
 	    		alert("Error: Please try again.");
