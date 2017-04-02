@@ -111,5 +111,5 @@ class LinkClassifier():
     def classify_doc_lsvm(self,document):
         processed_text = self.preprocessing(document)
         new_feature_vector = self.vectorizer.transform([processed_text])
-        predicted = clf1.predict(new_feature_vector)
+        predicted = self.clf_lsvm.predict(new_feature_vector)
         return predicted
