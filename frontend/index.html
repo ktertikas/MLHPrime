@@ -644,6 +644,9 @@
 
         });
 
+        //Load users history
+        get_user_links(localStorage.getItem('tosemail'));
+
         //Get web page details here
         $('#link_field').on('paste', function () {
           var element = this;
