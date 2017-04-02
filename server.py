@@ -116,7 +116,7 @@ class SaveLinkHandler(RequestHandler):
                 'title': metadata[0],
                 'text': metadata[1],
                 'image': metadata[2],
-                'date': datetime.datetime.now(),
+                'date': datetime.datetime.now().strftime('%m/%d/%Y'),
                 # 'tag': link_classifier.classify_link_lsvm(link)
             }
             db['links'].insert_one(data)
