@@ -23,11 +23,6 @@ class HomePageHandler(BaseHandler):
         user = tornado.escape.xhtml_escape(self.current_user)
         self.render("index.html", user=user)
 
-class UserPageHandler(BaseHandler):
-    def get(self):
-        print "GET /user request from", self.request.remote_ip
-        self.render("login.html")
-
 class LinkTagServiceHandler(RequestHandler):
     def get(self):
         print "GET /tag request from", self.request.remote_ip
@@ -38,9 +33,11 @@ class LinkTagServiceHandler(RequestHandler):
 class LinksList(RequestHandler):
     pass
 
-
-
 class LoginHandler(RequestHandler):
+
+    def get(self):
+        print "GET /user request from", self.request.remote_ip
+        self.render("login.html")
 
     def post(self):
         print "POST /login request from", self.request.remote_ip
