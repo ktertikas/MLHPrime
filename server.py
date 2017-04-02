@@ -15,7 +15,7 @@ client = MongoClient('localhost', 27017)
 db = client['mlhprime']
 
 
-# link_classifier = LinkClassifier()
+link_classifier = LinkClassifier()
 
 class JSONEncoder(json.JSONEncoder):
     def default(self, o):
@@ -124,7 +124,7 @@ class SaveLinkHandler(RequestHandler):
                 'text': metadata[1],
                 'image': metadata[2],
                 'date': datetime.datetime.now().strftime('%m/%d/%Y'),
-                # 'tag': link_classifier.classify_link_lsvm(link)
+                'tag': link_classifier.classify_link_lsvm(link)
             }
             print data
             result_db = db['links'].insert_one(data)
@@ -168,6 +168,7 @@ settings = dict(
     static_path=os.path.join(os.path.dirname(__file__), "static"),
     cookie_secret="61oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
     login_url="/login",
+    debug = True,
 )
 
 application = tornado.web.Application(handlers, **settings)
