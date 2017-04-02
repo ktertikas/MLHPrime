@@ -113,9 +113,9 @@ class SaveLinkHandler(RequestHandler):
             data = {
                 'userid': user_id,
                 'link': link,
-                'title': result[0],
-                'text': result[1],
-                'image': result[2],
+                'title': metadata[0],
+                'text': metadata[1],
+                'image': metadata[2],
                 'date': datetime.datetime.now(),
                 'tag': link_classifier.classify_link_lsvm(link)
             }
