@@ -72,6 +72,8 @@ handlers = [
     (r"/login", LoginHandler),
     (r"/signup", SignUpHandler),
     (r"/tag", LinkTagServiceHandler),
+    (r"/assets/(.*)", tornado.web.StaticFileHandler, {"path": os.path.join(os.path.dirname(__file__), "frontend/assets")}),
+    (r"/bower_components/(.*)", tornado.web.StaticFileHandler, {"path": os.path.join(os.path.dirname(__file__), "frontend/bower_components")}),
 ]
 
 settings = dict(
