@@ -136,7 +136,7 @@ class SaveLinkHandler(RequestHandler):
 class LinksListHandler(RequestHandler):
 
     def post(self):
-        print 'GET /getlinks request from', self.request.remote_ip
+        print 'POST /getlinks request from', self.request.remote_ip
 
         email = self.get_argument('email', '')
         # res_user = db['users'].find({ 'email': email })
