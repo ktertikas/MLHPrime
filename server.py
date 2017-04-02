@@ -54,7 +54,7 @@ class LoginHandler(RequestHandler):
         email = self.get_argument('email', '')
         password = self.get_argument('pass', '')
 
-        res = db['user'].find({
+        res = db['users'].find({
             'email': email,
             'pass': password
         }).count()
