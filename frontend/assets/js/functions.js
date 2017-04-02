@@ -38,6 +38,7 @@ function login(username, password){
 function logout(){
 	//Remove cookie
 	localStorage.removeItem("toscookie");
+	localStorage.removeItem("tosemail");
 	window.location = url+"/login";
 	/*$.ajax({
 	    url : url+"/logout",
