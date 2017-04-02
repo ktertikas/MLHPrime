@@ -142,6 +142,9 @@ class LinksListHandler(RequestHandler):
         # res_user = db['users'].find({ 'email': email })
         # email  = res_user[0]['email']
         res_links = list(db['links'].find({ 'email': email }))
+        for i,aa in enumerate(res_links):
+            del res_links[i]['_id']
+
         self.write({'status': 1, 'message': 'link exists', 'data': json.dumps(res_links)})
 
 handlers = [
