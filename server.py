@@ -12,12 +12,12 @@ class HomePageHandler(RequestHandler):
 
     def get(self):
         print "GET / request from", self.request.remote_ip
-        self.render("frontend/index.html")
+        self.render("index.html")
 
 class UserPageHandler(RequestHandler):
     def get(self):
         print "GET /user request from", self.request.remote_ip
-        self.render("index.html")
+        self.render("login.html")
 
 class LinkTagServiceHandler(RequestHandler):
     def get(self):
