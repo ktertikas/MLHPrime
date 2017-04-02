@@ -70,6 +70,10 @@ class LinkClassifier():
 
         self.feature_vector, self.vectorizer = self.create_featurevector(documents)
 
+        self.train_model_lsvm()
+
+
+    def train_model_bayes(self):
         # Naive Bayes Multinomial Classifier
         self.clf = MultinomialNB().fit(self.feature_vector, self.documents_labels)
 
