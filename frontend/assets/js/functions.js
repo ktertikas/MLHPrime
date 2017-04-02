@@ -88,7 +88,7 @@ function get_user_links(user_email){
 	    		console.log("Data is: "+data['data']);
 	    		var userdata = data['data'];
 	    		//Loop through data
-	    		for(var i = 0; i < userdata.length; ++i){
+	    		for(var i = 0; i < userdata.length; i++){
 	    			var category = userdata[i].tag;
 	    			console.log("Category: "+category);
 		    		$("#"+category).append('<li><div class="md-list-addon-element"><img src="'+userdata[i].image+'" alt="Thumbnail"></div>');
