@@ -91,7 +91,7 @@
                     </div>
                     <div class="uk-form-row">
                         <label for="register_email">E-mail</label>
-                        <input class="md-input" type="text" id="register_email" name="register_email" />
+                        <input class="md-input" type="email" id="register_email" name="register_email" />
                     </div>
                     <div class="uk-margin-medium-top">
                         <a href="" onclick="return checkcreate_user();" class="md-btn md-btn-success md-btn-block md-btn-large">Sign Up</a>
@@ -120,7 +120,7 @@
     function checkcreate_user(){
         username = $('#register_username').val();
         password = $('#register_password').val();
-        passrepeat = $('#register_password_repeat');
+        passrepeat = $('#register_password_repeat').val();
         email = $('#register_email').val();
 
         if(password!==passrepeat){
