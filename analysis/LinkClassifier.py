@@ -63,7 +63,7 @@ class LinkClassifier():
                 processed_text = self.preprocessing(soup2.body.get_text())
                 documents.append(processed_text)
                 documents_titles.append(soup2.title.text)
-                documents_labels.append(category)
+                self.documents_labels.append(category)
 
         self.feature_vector, self.vectorizer = self.create_featurevector(documents)
 
