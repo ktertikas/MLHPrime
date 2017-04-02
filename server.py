@@ -6,6 +6,7 @@ from pymongo import MongoClient
 import os
 from analysis.LinkClassifier import LinkClassifier
 from analysis.Metadata import get_metadata
+import datetime
 
 import json
 
@@ -31,15 +32,15 @@ class HomePageHandler(BaseHandler):
         # user = tornado.escape.xhtml_escape(self.get_current_user())
         self.render("index.html") #user=user
 
-class LinkTagServiceHandler(RequestHandler):
+# class LinkTagServiceHandler(RequestHandler):
+#
+#     def post(self):
+#         print 'POST /tag request from', self.request.remote_ip
+#         link = self.get_argument('link', '')
+#         tag = link_classifier.classify_link_lsvm(link)
+#         self.write({'status': '1', 'tag': tag})
 
-    def post(self):
-        print 'POST /tag request from', self.request.remote_ip
-        link = self.get_argument('link', '')
-        tag = link_classifier.classify_link_lsvm(link)
-        self.write({'status': '1', 'tag': tag})
-
-class MetadataHandler(RequestHandler):
+class TagHandler(RequestHandler):
     def post(self):
         result = get_metadata(self.get_argument('link', ''))
         self.write({'title': result[0], 'text': result[1], 'image':result[2]})
@@ -101,18 +102,25 @@ class SaveLinkHandler(RequestHandler):
         print 'POST /savelink request from', self.request.remote_ip
 
         link = self.get_argument('link', '')
-        user = self.get_argument('user', '')
+        email = self.get_argument('email', '')
 
-        res_user = db['users'].find({ 'user': user })
-        user_id  = res_user[0]['id']
+        res_user = db['users'].find({ 'email': email })
+        user_id  = res_user[0]['_id']
         res_link = db['links'].find({ 'userid': user_id, 'link':link })
+        metadata = get_metadata(link)
 
         if res_link.count() != 1:
-            db['links'].insert_one({
+            data = {
                 'userid': user_id,
                 'link': link,
-            })
-            self.write({'status': 1, 'message': 'link saved'})
+                'title': result[0],
+                'text': result[1],
+                'image': result[2],
+                'date': datetime.datetime.now(),
+                'tag': link_classifier.classify_link_lsvm(link)
+            }
+            db['links'].insert_one(data)
+            self.write({'status': 1, 'message': 'link saved', 'data': data})
         else:
             self.write({'status': 0, 'message': 'link exists'})
 
@@ -121,10 +129,10 @@ class LinksListHandler(RequestHandler):
     def post(self):
         print 'GET /getlinks request from', self.request.remote_ip
 
-        user = self.get_argument('user', '')
-        res_user = db['users'].find({ 'user': user })
-        user_id  = res_user[0]['id']
-        res_links = db['links'].find({ 'userid': user_id, 'link':link })
+        email = self.get_argument('email', '')
+        res_user = db['users'].find({ 'email': email })
+        user_id  = res_user[0]['_id']
+        res_links = db['links'].find({ 'userid': user_id })
         self.write({'status': 1, 'message': 'link exists', 'data': json.dumps(res_links)})
 
 handlers = [
@@ -132,11 +140,10 @@ handlers = [
     # (r"/user", UserPageHandler),
     (r"/savelink", SaveLinkHandler),
     (r"/getlinks", LinksListHandler),
-    (r"/meta", MetadataHandler),
     (r"/login", LoginHandler),
     (r"/signup", SignUpHandler),
     (r"/logout", LogoutHandler),
-    (r"/tag", LinkTagServiceHandler),
+    (r"/tag", TagHandler),
     (r"/assets/(.*)", tornado.web.StaticFileHandler,
      {"path": os.path.join(os.path.dirname(__file__), "frontend/assets")}),
     (r"/bower_components/(.*)", tornado.web.StaticFileHandler,
