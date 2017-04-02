@@ -85,7 +85,11 @@ function get_user_links(user_email){
 	    success: function(data, textStatus, jqXHR)
 	    {
 	    	if(data['status']==1){
-	    		
+	    		console.log("Data is: "+data['data']);
+	    		//Loop through data
+
+	    		//Append to list
+
 	    	}
 	    	else{
 	    		alert("Error: Please try again.");
@@ -154,6 +158,9 @@ function save_user_link(link, email){
                 $("#"+category).append(data['data']['text']+'</span></div><div style="float:right; position:relative;');
                 $("#"+category).append(' bottom:30px;"><input id="checkedItem" value="'+data['data']['title']);
                 $("#"+category).append('" type="checkbox" data-md-icheck /></div></li>');
+
+                $("#preview").hide();
+                $("#link_field").val("");
 	    	}
 	    	else{
 	    		alert("Error: Please try again");
