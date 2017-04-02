@@ -147,11 +147,11 @@ function save_user_link(link, email){
 	    		//Append to list
 	    		var category = data['category'];
 	    		$("#category_one").append('<li><div class="md-list-addon-element"><img src="'+data['data']['image']+'" alt="Thumbnail"></div>');
-                $("#category_one").append('<div class="md-list-content"><a href="#"><span class="md-list-heading">');
+                $("#category_one").append('<div class="md-list-content"><a><span class="md-list-heading">');
                 $("#category_one").append(data['data']['title']+'</span></a><span class="uk-text-small uk-text-muted">');
                 $("category_one").append(data['data']['text']+'</span></div><div style="float:right; position:relative;');
                 $("category_one").append(' bottom:30px;"><input id="checkedItem" value="'+data['data']['title']);
-                $("category_one").append('" type="checkbox" data-md-icheck /></div></li>');*/
+                $("category_one").append('" type="checkbox" data-md-icheck /></div></li>');
 	    	}
 	    	else{
 	    		alert("Error: Please try again");
