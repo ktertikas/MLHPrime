@@ -131,9 +131,9 @@ function get_link_details(link){
 	});
 }
 
-function save_user_link(link){
+function save_user_link(link, email){
 	var email = localStorage.getItem('tosemail');
-	var data = "link="+link+"&email="email;
+	var data = "link="+link+"&email="+email;
 
 	$.ajax({
 	    url : url+"/savelink",
