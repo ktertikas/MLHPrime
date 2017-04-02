@@ -7,10 +7,12 @@ import os
 from analysis.LinkClassifier import LinkClassifier
 from analysis.Metadata import get_metadata
 
+import json
+
 client = MongoClient('localhost', 27017)
 db = client['mlhprime']
 
-link_classifier = LinkClassifier()
+# link_classifier = LinkClassifier()
 
 
 class BaseHandler(RequestHandler):
@@ -35,10 +37,7 @@ class LinkTagServiceHandler(RequestHandler):
         print 'POST /tag request from', self.request.remote_ip
         link = self.get_argument('link', '')
         tag = link_classifier.classify_link_lsvm(link)
-        self.write({'status': 'ok', 'tag': tag})
-
-class LinksList(RequestHandler):
-    pass
+        self.write({'status': '1', 'tag': tag})
 
 class MetadataHandler(RequestHandler):
     def post(self):
@@ -95,10 +94,44 @@ class SignUpHandler(RequestHandler):
         else:
             self.write({'status': 0, 'message': 'already registered'})
 
+class SaveLinkHandler(RequestHandler):
+
+    def post(self):
+
+        print 'POST /savelink request from', self.request.remote_ip
+
+        link = self.get_argument('link', '')
+        user = self.get_argument('user', '')
+
+        res_user = db['users'].find({ 'user': user })
+        user_id  = res_user[0]['id']
+        res_link = db['links'].find({ 'userid': user_id, 'link':link })
+
+        if res_link.count() != 1:
+            db['links'].insert_one({
+                'userid': user_id,
+                'link': link,
+            })
+            self.write({'status': 1, 'message': 'link saved'})
+        else:
+            self.write({'status': 0, 'message': 'link exists'})
+
+class LinksListHandler(RequestHandler):
+
+    def post(self):
+        print 'GET /getlinks request from', self.request.remote_ip
+
+        user = self.get_argument('user', '')
+        res_user = db['users'].find({ 'user': user })
+        user_id  = res_user[0]['id']
+        res_links = db['links'].find({ 'userid': user_id, 'link':link })
+        self.write({'status': 1, 'message': 'link exists', 'data': json.dumps(res_links)})
 
 handlers = [
     (r"/", HomePageHandler),
     # (r"/user", UserPageHandler),
+    (r"/savelink", SaveLinkHandler),
+    (r"/getlinks", LinksListHandler),
     (r"/meta", MetadataHandler),
     (r"/login", LoginHandler),
     (r"/signup", SignUpHandler),
