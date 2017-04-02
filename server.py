@@ -117,16 +117,17 @@ class SaveLinkHandler(RequestHandler):
 
         if res_link.count() != 1:
             data = {
-                'email': str(email),
-                'link': str(link),
-                'title': str(metadata[0]),
-                'text': str((metadata[1]),
-                'image': str(metadata[2]),
-                'date': str(datetime.datetime.now().strftime('%m/%d/%Y')),
+                'email': email,
+                'link': link,
+                'title': metadata[0],
+                'text': metadata[1],
+                'image': metadata[2],
+                'date': datetime.datetime.now().strftime('%m/%d/%Y'),
                 # 'tag': link_classifier.classify_link_lsvm(link)
             }
             print data
             result_db = db['links'].insert_one(data)
+            print {'status': 1, 'message': 'link saved', 'data': data}
             self.write( json.dumps( {'status': 1, 'message': 'link saved', 'data': data} ))
         else:
             self.write({'status': 0, 'message': 'link exists'})
