@@ -22,24 +22,21 @@ class LinkClassifier():
                      "education":"http://feeds.bbci.co.uk/news/education/rss.xml?edition=uk",
                      "entertainment":"http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml?edition=uk"}
 
+    word_pattern = re.compile("^[^\d\W]+$")
+    stop_words = set(stopwords.words('english'))
+    word_length = 2
+    ps = SnowballStemmer("english")
+
     def __init__(self):
-        self.init_preprocessing()
         print 'Training model...'
         self.train_model()
         print 'Model trained'
 
-    # Cleaning, tokenization, stemming of text
-    def init_preprocessing(self):
-        word_pattern = re.compile("^[^\d\W]+$")
-        stop_words = set(stopwords.words('english'))
-        word_length = 2
-        ps = SnowballStemmer("english")
-
     def preprocessing(self,document):
         tokens = WordPunctTokenizer().tokenize(document)
         tokens = list(map(lambda x: x.lower(), tokens))
-        tokens = [i for i in tokens if re.match(word_pattern, i) and i not in stop_words and len(i)>word_length]
-        tokens = [ps.stem(i) for i in tokens]
+        tokens = [i for i in tokens if re.match(self.word_pattern, i) and i not in self.stop_words and len(i)>self.word_length]
+        tokens = [self.ps.stem(i) for i in tokens]
         tokens_text = ' '.join(tokens)
         return tokens_text
 
