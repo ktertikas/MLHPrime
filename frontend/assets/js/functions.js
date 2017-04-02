@@ -14,7 +14,7 @@ function login(username, password){
 	    	if(data['status']==1){
 	    		localStorage.setItem("tosemail", username);
 	    		localStorage.setItem("toscookie", data['user']);
-	    		window.location.href = url;
+	    		window.location = url;
 	    	}
 	    	else{
 	    		alert("Error signing in. Please try again.");
@@ -38,7 +38,7 @@ function login(username, password){
 function logout(){
 	//Remove cookie
 	localStorage.removeItem("toscookie");
-	window.location.href = url+"/login";
+	window.location = url+"/login";
 	/*$.ajax({
 	    url : url+"/logout",
 	    type: "POST",
@@ -61,7 +61,7 @@ function create_user(username, password, email){
 	    	if(data['status']==1){
 	    		localStorage.setItem("tosemail", username);
 	    		localStorage.setItem("toscookie", data['user']);
-	    		window.location.href = url;
+	    		window.location = url;
 	    	}
 	    	else{
 	    		alert("Error signing in. Please try again.");
