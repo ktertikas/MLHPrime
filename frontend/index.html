@@ -33,6 +33,19 @@
     <![endif]-->
 
 </head>
+
+<style>
+.app_theme_g #header_main{
+    background: #00897B;
+}
+.md-btn-success, .md-btn-success:active, .md-btn-success:focus, .md-btn-success:hover{
+    background: #009688;
+}
+.md-fab.md-fab-success{
+    background: #009688;
+}
+</style>
+
 <body class="top_menu app_theme_g">
     <!-- main header -->
     <header id="header_main">
@@ -276,10 +289,10 @@
                         <input id="link_field" type="text" class="md-input" />
                     </div>
                     <div class="uk-width-medium-1-6">
-                        <a class="md-btn md-btn-warning md-btn-block md-btn-wave-light" href="#">TAG</a>
+                        <a class="md-btn md-btn-warning md-btn-block md-btn-wave-light" href="" onclick="return checkLink('tagging')">TAG</a>
                     </div>
                     <div class="uk-width-medium-1-6">
-                        <a class="md-btn md-btn-success md-btn-block md-btn-wave-light" href="#">SAVE</a>
+                        <a class="md-btn md-btn-success md-btn-block md-btn-wave-light" href="" onclick="return checkLink('saving');">SAVE</a>
                     </div>
                     <h4 class="uk-margin-bottom"><b>Saved Links</b></h4>
                     <div class="uk-width-1-1">
@@ -488,9 +501,24 @@
         $('#link_field').on('input',function(e){
             var field_value = $('#link_field').val();
             if(field_value.length>6){
-                
+                //Make request to server
+
             }
         });
+
+        //Checking the link
+        function checkLink(myButton){
+            if(myButton=="tagging"){
+                var field_value = $('#link_field').val();
+                if(field_value.length>6){
+                    //Make request to server
+
+                }
+                else{
+
+                }
+            }
+        }
     </script>
 
     <!--Creating the Rose Chart-->
