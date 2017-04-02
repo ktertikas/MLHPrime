@@ -13,7 +13,7 @@ function login(username, password){
 	    {
 	    	if(data['status']==1){
 	    		localStorage.setItem("tosemail", username);
-	    		localStorage.setItem("toscookie", data['user']);
+	    		localStorage.setItem("toscookie", data['cookie']);
 	    		window.location = url;
 	    	}
 	    	else{
@@ -74,8 +74,27 @@ function create_user(username, password, email){
 	});
 }
 
-function get_user_links(session_id, user_email){
+function get_user_links(user_cookie){
+	var data = "cookie="+link+"&data=getlinks";
 
+	$.ajax({
+	    url : url+"/",
+	    type: "POST",
+	    data : data,
+	    success: function(data, textStatus, jqXHR)
+	    {
+	    	if(data['status']==1){
+	    		
+	    	}
+	    	else{
+	    		alert("Error: Please try again.");
+	    	}
+	    },
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+	 		//Catch error in case we want to show a popup dialog
+	    }
+	});
 }
 
 function get_user_stats(session_id, user_email){
@@ -142,11 +161,50 @@ function change_user_category(session_id, user_email, link){
 
 }
 
-function change_link_info(session_id, user_email, link){
+function change_link_info(newtitle, user_cookie, link, newcategory){
+	var data = "cookie="+user_cookie+"&title="+newtitle+"&link="+link+"&category="+newcategory;
+
+	$.ajax({
+	    url : url+"/",
+	    type: "POST",
+	    data : data,
+	    success: function(data, textStatus, jqXHR)
+	    {
+	    	if(data['status']==1){
+	    		
+	    	}
+	    	else{
+	    		alert("Error: Please try again.");
+	    	}
+	    },
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+	 		//Catch error in case we want to show a popup dialog
+	    }
+	});
 
 }
 
-function delete_user_link(session_id, user_email, link){
+function delete_user_link(user_cookie, link){
+	var data = "cookie="+user_cookie+"&link="+link;
 
+	$.ajax({
+	    url : url+"/",
+	    type: "POST",
+	    data : data,
+	    success: function(data, textStatus, jqXHR)
+	    {
+	    	if(data['status']==1){
+	    		
+	    	}
+	    	else{
+	    		alert("Error: Please try again.");
+	    	}
+	    },
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+	 		//Catch error in case we want to show a popup dialog
+	    }
+	});
 }
 
