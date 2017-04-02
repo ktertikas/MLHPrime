@@ -74,8 +74,8 @@ function create_user(username, password, email){
 	});
 }
 
-function get_user_links(user_cookie){
-	var data = "cookie="+link+"&data=getlinks";
+function get_user_links(user_email){
+	var data = "email="+user_email;
 
 	$.ajax({
 	    url : url+"/",
@@ -132,19 +132,31 @@ function get_link_details(link){
 }
 
 function save_user_link(link){
-	var data = "link="+link;
+	var email = localStorage.getItem('tosemail');
+	var data = "link="+link+"&email="email;
 
 	$.ajax({
-	    url : url+"/",
+	    url : url+"/savelink",
 	    type: "POST",
 	    data : data,
 	    success: function(data, textStatus, jqXHR)
 	    {
 	    	if(data['status']==1){
-	    		
+	    		//Append to list
+	    		var category = data['category'];
+	    		$("#category_one").append('<li><div class="md-list-addon-element">
+                                                <img src="'+data['data']['image']+'" alt="Thumbnail">
+                                            </div>
+                                            <div class="md-list-content">
+                                                <a href="#"><span class="md-list-heading">'+data['data']['title']+'</span></a>
+                                                <span class="uk-text-small uk-text-muted">'+data['data']['text']+'</span>
+                                            </div>
+                                            <div style="float:right; position:relative; bottom:30px;">
+                                                <input id="checkedItem" value="'+data['data']['title']+'" type="checkbox" data-md-icheck />
+                                            </div></li>');
 	    	}
 	    	else{
-	    		alert("Error: ");
+	    		alert("Error: Please try again");
 	    	}
             	
             //console.log("Projects: "+totalprojects);
