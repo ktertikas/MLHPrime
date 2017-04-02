@@ -89,7 +89,7 @@ function get_user_links(user_email){
 	    		var userdata = data['data'];
 	    		//Loop through data
 	    		for(var i = 0; i < userdata.length; ++i){
-	    			var category = userdata[i].category;
+	    			var category = userdata[i].tag;
 		    		$("#"+category).append('<li><div class="md-list-addon-element"><img src="'+userdata[i].image+'" alt="Thumbnail"></div>');
 	                $("#"+category).append('<div class="md-list-content"><a><span class="md-list-heading">');
 	                $("#"+category).append(userdata[i].title+'</span></a><span class="uk-text-small uk-text-muted">');
@@ -160,7 +160,7 @@ function save_user_link(link, email){
 	    	console.log("Status: "+data['status']);
 	    	if(data['status']==1){
 	    		//Append to list
-	    		var category = data['data']['category'];
+	    		var category = data['data']['tag'];
 	    		$("#"+category).append('<li><div class="md-list-addon-element"><img src="'+data['data']['image']+'" alt="Thumbnail"></div>');
                 $("#"+category).append('<div class="md-list-content"><a><span class="md-list-heading">');
                 $("#"+category).append(data['data']['title']+'</span></a><span class="uk-text-small uk-text-muted">');
