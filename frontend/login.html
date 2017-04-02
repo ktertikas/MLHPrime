@@ -42,15 +42,15 @@
                         <input class="md-input" type="password" id="login_password" name="login_username" />
                     </div>
                     <div class="uk-margin-medium-top">
-                        <a href="index.html" class="md-btn md-btn-success md-btn-block md-btn-large">Sign In</a>
+                        <a href="" onclick="return checklogin();" class="md-btn md-btn-success md-btn-block md-btn-large">Sign In</a>
                     </div>
-                    <div class="uk-margin-top">
+                    <!--<div class="uk-margin-top">
                         <a href="#" id="login_help_show" class="uk-float-right">Need help?</a>
                         <span class="icheck-inline">
                             <input type="checkbox" name="login_page_stay_signed" id="login_page_stay_signed" data-md-icheck />
                             <label for="login_page_stay_signed" class="inline-label">Stay signed in</label>
                         </span>
-                    </div>
+                    </div>-->
                 </form>
             </div>
             <div class="md-card-content large-padding uk-position-relative" id="login_help" style="display: none">
@@ -68,9 +68,9 @@
                         <label for="login_email_reset">Your email address</label>
                         <input class="md-input" type="text" id="login_email_reset" name="login_email_reset" />
                     </div>
-                    <div class="uk-margin-medium-top">
+                    <!--<div class="uk-margin-medium-top">
                         <a href="index.html" class="md-btn md-btn-primary md-btn-block">Reset password</a>
-                    </div>
+                    </div>-->
                 </form>
             </div>
             <div class="md-card-content large-padding" id="register_form" style="display: none">
@@ -94,7 +94,7 @@
                         <input class="md-input" type="text" id="register_email" name="register_email" />
                     </div>
                     <div class="uk-margin-medium-top">
-                        <a href="index.html" class="md-btn md-btn-success md-btn-block md-btn-large">Sign Up</a>
+                        <a href="" onclick="return checkcreate_user();" class="md-btn md-btn-success md-btn-block md-btn-large">Sign Up</a>
                     </div>
                 </form>
             </div>
@@ -111,6 +111,42 @@
 
     <!-- altair login page functions -->
     <script src="assets/js/pages/login.min.js"></script>
+
+    <!--My scripts-->
+    <script src="assets/js/functions.js"></script>
+
+    <script>
+
+    function checkcreate_user(){
+        username = $('#register_username').val();
+        password = $('#register_password').val();
+        passrepeat = $('#register_password_repeat');
+        email = $('#register_email').val();
+
+        if(password!==passrepeat){
+            alert("Please ensure your passwords match");
+        }
+        else if(username.length==0 || password.length==0 || email.length>0){
+            alert("Please fill in all fields");
+        }
+        else{
+            create_user(username, password, email);
+        }
+    }
+
+    function checklogin(){
+        username = $('#login_username').val();
+        password = $('#login_password').val();
+
+        if(username.length>0 && password.length>0){
+            login(username, password);
+        }
+        else{
+            alert("Please enter a username and password");
+        }
+    }
+
+    </script>
 
 </body>
 </html>

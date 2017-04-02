@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+
+  "name": "Tag Your Stuff",
+  "description": "This extension gives you a smarter way to categorize your information",
+  "version": "1.0",
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "background": {
+      "scripts": ["getbookmarks.js"],
+      "persistent": false
+  },
+  "permissions": [
+    "activeTab",
+    "bookmarks"
+  ]
+}
