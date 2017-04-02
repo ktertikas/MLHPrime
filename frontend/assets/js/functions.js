@@ -86,7 +86,7 @@ function get_user_links(user_email){
 	    {
 	    	if(data['status']==1){
 	    		console.log("Data is: "+data['data']);
-	    		var userdata = data['data'];
+	    		var userdata = JSON.parse(data['data']);
 	    		//Loop through data
 	    		for(var i = 0; i < userdata.length; i++){
 	    			var category = userdata[i].tag;
