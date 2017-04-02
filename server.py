@@ -25,7 +25,7 @@ class HomePageHandler(BaseHandler):
         # if not self.current_user:
         #     self.redirect('/login')
         #     return
-        user = tornado.escape.xhtml_escape(self.get_current_user())
+        # user = tornado.escape.xhtml_escape(self.get_current_user())
         self.render("index.html") #user=user
 
 
