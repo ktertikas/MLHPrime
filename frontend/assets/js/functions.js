@@ -98,7 +98,6 @@ function get_user_links(user_email){
 	                $("#"+category).append(' bottom:30px;"><input id="checkedItem" value="'+userdata[i].title);
 	                $("#"+category).append('" type="checkbox" data-md-icheck /></div></li>');
 	    		}
-	    		//Append to list
 
 	    	}
 	    	else{
