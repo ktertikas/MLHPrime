@@ -119,6 +119,7 @@ class SaveLinkHandler(RequestHandler):
                 'date': datetime.datetime.now().strftime('%m/%d/%Y'),
                 # 'tag': link_classifier.classify_link_lsvm(link)
             }
+            print data
             db['links'].insert_one(data)
             self.write({'status': 1, 'message': 'link saved', 'data': data})
         else:
