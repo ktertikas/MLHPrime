@@ -9,19 +9,17 @@ function login(username, password){
 	    url : url+"/login",
 	    type: "POST",
 	    data : data,
-	    /*success: function(data, textStatus, jqXHR)
+	    success: function(data, textStatus, jqXHR)
 	    {
 	    	if(data['status']==1){
-	    		localeStorage.setItem("tosemail", username);
+	    		localStorage.setItem("tosemail", username);
+	    		localStorage.setItem("toscookie", data['user']);
+	    		window.location.href = "index.html";
 	    	}
 	    	else{
-
+	    		alert("Error signing in. Please try again.");
 	    	}
-	        cookie = data['cookie'];
-            	
-            //console.log("Projects: "+totalprojects);
-            //console.log("Revenue: "+totalrevenue);
-	    },*/
+	    },
 	    error: function (jqXHR, textStatus, errorThrown)
 	    {
 	 		//Catch error in case we want to show a popup dialog
@@ -37,6 +35,17 @@ function login(username, password){
 
 }
 
+function logout(){
+	$.ajax({
+	    url : url+"/logout",
+	    type: "POST",
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+	 		//Catch error in case we want to show a popup dialog
+	    }
+	});
+}
+
 function create_user(username, password, email){
 	var data = "user="+username+"&pass="+password+"&email="+email;
 
@@ -44,6 +53,17 @@ function create_user(username, password, email){
 	    url : url+"/signup",
 	    type: "POST",
 	    data : data,
+	    success: function(data, textStatus, jqXHR)
+	    {
+	    	if(data['status']==1){
+	    		localStorage.setItem("tosemail", username);
+	    		localStorage.setItem("toscookie", data['user']);
+	    		window.location.href = "index.html";
+	    	}
+	    	else{
+	    		alert("Error signing in. Please try again.");
+	    	}
+	    },
 	    error: function (jqXHR, textStatus, errorThrown)
 	    {
 	 		//Catch error in case we want to show a popup dialog
