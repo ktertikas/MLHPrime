@@ -289,10 +289,10 @@
                         <input id="link_field" type="text" class="md-input" />
                     </div>
                     <div class="uk-width-medium-1-6">
-                        <a class="md-btn md-btn-warning md-btn-block md-btn-wave-light" href="" onclick="return checkLink('tagging')">TAG</a>
+                        <a class="md-btn md-btn-warning md-btn-block md-btn-wave-light" onclick="return checkLink('tagging')">TAG</a>
                     </div>
                     <div class="uk-width-medium-1-6">
-                        <a class="md-btn md-btn-success md-btn-block md-btn-wave-light" href="" onclick="return checkLink('saving');">SAVE</a>
+                        <a class="md-btn md-btn-success md-btn-block md-btn-wave-light" onclick="return checkLink('saving');">SAVE</a>
                     </div>
 
                     <!--Layout preview-->
@@ -338,7 +338,7 @@
                                                 <span class="uk-text-small uk-text-muted">Harum deserunt accusamus dolores error sequi ipsam non velit autem.</span>
                                             </div>
                                             <div style="float:right; position:relative; bottom:30px;">
-                                                <input type="checkbox" data-md-icheck />
+                                                <input id="checkedItem" value="Heading" type="checkbox" data-md-icheck />
                                             </div>
                                         </li>
                                         <li>
@@ -504,11 +504,11 @@
     <script>
 
         //Check if cookie is set
-        $( document ).ready(function() {
+        /*$( document ).ready(function() {
             if(localStorage.getItem("toscookie")==null){
                 window.location = "/login"
             }
-        });
+        });*/
 
         $(function() {
             var $switcher = $('#style_switcher'),
@@ -547,7 +547,7 @@
             }
         }
 
-        checkbox = $('#check_id').val();
+        checkbox = $('#checkedItem').val();
         console.log(checkbox);
 
 
