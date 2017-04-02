@@ -84,7 +84,7 @@ class SignUpHandler(RequestHandler):
                 'pass': self.get_argument('pass', ''),
             })
             self.set_secure_cookie('user', username)
-            self.redirect('/'')
+            self.redirect('/')
         else:
             self.write({'status': 0, 'message': 'already registered'})
 
@@ -105,7 +105,7 @@ handlers = [
 settings = dict(
     template_path=os.path.join(os.path.dirname(__file__), "frontend"),
     static_path=os.path.join(os.path.dirname(__file__), "static"),
-    cookie_secret="61oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo="",
+    cookie_secret="61oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
     login_url="/login",
 )
 
