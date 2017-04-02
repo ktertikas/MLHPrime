@@ -104,8 +104,8 @@ class SaveLinkHandler(RequestHandler):
         link = self.get_argument('link', '')
         email = self.get_argument('email', '')
 
-        res_user = db['users'].find({ 'email': email })
-        email  = res_user[0]['email']
+        # res_user = db['users'].find({ 'email': email })
+        # email  = res_user[0]['email']
         res_link = db['links'].find({ 'email': email, 'link':link })
         metadata = get_metadata(link)
 
@@ -130,8 +130,8 @@ class LinksListHandler(RequestHandler):
         print 'GET /getlinks request from', self.request.remote_ip
 
         email = self.get_argument('email', '')
-        res_user = db['users'].find({ 'email': email })
-        email  = res_user[0]['email']
+        # res_user = db['users'].find({ 'email': email })
+        # email  = res_user[0]['email']
         res_links = db['links'].find({ 'email': email })
         self.write({'status': 1, 'message': 'link exists', 'data': json.dumps(res_links)})
 
