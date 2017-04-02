@@ -7,6 +7,8 @@ import os
 from analysis.LinkClassifier import LinkClassifier
 
 client = MongoClient('localhost', 27017)
+db = client['mlhprime']
+
 # link_classifier = LinkClassifier()
 
 
@@ -77,13 +79,13 @@ class SignUpHandler(RequestHandler):
         user_exists = db['users'].find({
             'email': self.get_argument('email', '')
         }).count()
-        if user_exists == 1:
+        if user_exists != 1:
             db['users'].insert_one({
                 'email': self.get_argument('email', ''),
                 'username': self.get_argument('user', ''),
                 'pass': self.get_argument('pass', ''),
             })
-            self.set_secure_cookie('user', username)
+            self.set_secure_cookie('user', self.get_argument('user'))
             self.redirect('/')
         else:
             self.write({'status': 0, 'message': 'already registered'})
