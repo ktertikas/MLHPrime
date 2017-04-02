@@ -7,6 +7,7 @@ import os
 from analysis.LinkClassifier import LinkClassifier
 from analysis.Metadata import get_metadata
 import datetime
+from bson import ObjectId
 
 import json
 
@@ -15,6 +16,11 @@ db = client['mlhprime']
 
 # link_classifier = LinkClassifier()
 
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, ObjectId):
+            return str(o)
+        return json.JSONEncoder.default(self, o)
 
 class BaseHandler(RequestHandler):
 
@@ -121,7 +127,9 @@ class SaveLinkHandler(RequestHandler):
             }
             print data
             result_db = db['links'].insert_one(data)
-            self.write({'status': 1, 'message': 'link saved', 'data': data})
+            # print {'status': 1, 'message': 'link saved', 'data': data}
+            del data['_id']
+            self.write( {'status': 1, 'message': 'link saved', 'data': data} )
         else:
             self.write({'status': 0, 'message': 'link exists'})
 
