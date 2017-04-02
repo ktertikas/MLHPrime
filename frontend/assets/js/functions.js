@@ -86,20 +86,24 @@ function get_link_details(link){
 	var data = "link="+link;
 
 	$.ajax({
-	    url : url+"/",
+	    url : url+"/tag",
 	    type: "POST",
 	    data : data,
 	    success: function(data, textStatus, jqXHR)
 	    {
 	    	if(data['status']==1){
-	    		
+	    		title = data['title'];
+	    		text = data['text'];
+	    		thumb = data['image'];
+
+	    		$('#preview').show();
+	    		$('#plink_title').html(title);
+	    		$('#plink_description').html(text);
+	    		$('#plink_image').html(thumb);
 	    	}
 	    	else{
-	    		alert("Error: ");
+	    		alert("Error: Please try again.");
 	    	}
-            	
-            //console.log("Projects: "+totalprojects);
-            //console.log("Revenue: "+totalrevenue);
 	    },
 	    error: function (jqXHR, textStatus, errorThrown)
 	    {

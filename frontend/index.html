@@ -294,10 +294,22 @@
                     <div class="uk-width-medium-1-6">
                         <a class="md-btn md-btn-success md-btn-block md-btn-wave-light" href="" onclick="return checkLink('saving');">SAVE</a>
                     </div>
+
                     <!--Layout preview-->
-                    <div id="preview" class="md-list md-list-addon">
-                        
+                    <div id="preview" class="uk-width-medium-1-1">
+                        <ul class="md-list md-list-addon">
+                            <li>
+                                <div class="md-list-addon-element">
+                                    <img id="plink_img" src="assets/img/avatars/avatar_07_tn.png" alt="Thumbnail" style="width: 48px; height: 48px;">
+                                </div>
+                                <div class="md-list-content">
+                                    <a href="#"><span id="plink_title" class="md-list-heading">Heading</span></a>
+                                    <span id="plink_description" class="uk-text-small uk-text-muted">Harum deserunt accusamus dolores error sequi ipsam non velit autem.</span>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
+                    
                     <h4 class="uk-margin-bottom"><b>Saved Links</b></h4>
                     <div class="uk-width-1-1">
                         <div class="uk-width-1-1">
@@ -502,12 +514,15 @@
         });
 
         //Get web page details here
-        $('#link_field').on('input',function(e){
-            var field_value = $('#link_field').val();
-            if(field_value.length>6){
-                //Make request to server
+        $('#link_field').on('paste', function () {
+          var element = this;
+          setTimeout(function () {
+            var field_value = $(element).val();
+            console.log(field_value);
 
-            }
+            get_link_details(field_value);
+
+          }, 100);
         });
 
         //Checking the link
@@ -523,6 +538,10 @@
                 }
             }
         }
+
+        //Hide preview rich link
+        $('#preview').hide();
+
     </script>
 
     <!--Creating the Rose Chart-->
