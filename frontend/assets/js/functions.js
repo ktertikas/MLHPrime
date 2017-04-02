@@ -38,7 +38,7 @@ function login(username, password){
 function logout(){
 	//Remove cookie
 	localStorage.removeItem("toscookie");
-	window.location.href = url;
+	window.location.href = url+"/login";
 	/*$.ajax({
 	    url : url+"/logout",
 	    type: "POST",
