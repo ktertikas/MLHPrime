@@ -326,7 +326,7 @@
                                                 <span class="uk-text-small uk-text-muted">Harum deserunt accusamus dolores error sequi ipsam non velit autem.</span>
                                             </div>
                                             <div style="float:right; position:relative; bottom:30px;">
-                                                <input type="checkbox" data-md-icheck checked />
+                                                <input id="checkedItem" value="Heading" type="checkbox" data-md-icheck checked />
                                             </div>
                                         </li>
                                         <li>
@@ -546,6 +546,10 @@
                 }
             }
         }
+
+        checkbox = $('#check_id').val();
+        console.log(checkbox);
+
 
         //Hide preview rich link
         $('#preview').hide();
