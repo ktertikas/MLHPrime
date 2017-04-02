@@ -44,19 +44,6 @@ function create_user(username, password, email){
 	    url : url+"/signup",
 	    type: "POST",
 	    data : data,
-	    /*success: function(data, textStatus, jqXHR)
-	    {
-	    	if(data['status']==1){
-	    		localeStorage.setItem("tosemail", username);
-	    	}
-	    	else{
-
-	    	}
-	        cookie = data['cookie'];
-            	
-            //console.log("Projects: "+totalprojects);
-            //console.log("Revenue: "+totalrevenue);
-	    },*/
 	    error: function (jqXHR, textStatus, errorThrown)
 	    {
 	 		//Catch error in case we want to show a popup dialog
@@ -72,8 +59,56 @@ function get_user_stats(session_id, user_email){
 
 }
 
-function get_link_details(session, user_email){
+function get_link_details(link){
+	var data = "link="+link;
 
+	$.ajax({
+	    url : url+"/",
+	    type: "POST",
+	    data : data,
+	    success: function(data, textStatus, jqXHR)
+	    {
+	    	if(data['status']==1){
+	    		
+	    	}
+	    	else{
+	    		alert("Error: ");
+	    	}
+            	
+            //console.log("Projects: "+totalprojects);
+            //console.log("Revenue: "+totalrevenue);
+	    },
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+	 		//Catch error in case we want to show a popup dialog
+	    }
+	});
+}
+
+function save_user_link(link){
+	var data = "link="+link;
+
+	$.ajax({
+	    url : url+"/",
+	    type: "POST",
+	    data : data,
+	    success: function(data, textStatus, jqXHR)
+	    {
+	    	if(data['status']==1){
+	    		
+	    	}
+	    	else{
+	    		alert("Error: ");
+	    	}
+            	
+            //console.log("Projects: "+totalprojects);
+            //console.log("Revenue: "+totalrevenue);
+	    },
+	    error: function (jqXHR, textStatus, errorThrown)
+	    {
+	 		//Catch error in case we want to show a popup dialog
+	    }
+	});
 }
 
 function change_user_category(session_id, user_email, link){
