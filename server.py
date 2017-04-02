@@ -84,7 +84,7 @@ class SignUpHandler(RequestHandler):
                 'pass': self.get_argument('pass', ''),
             })
             self.set_secure_cookie('user', username)
-            self.redirect('/'')
+            self.redirect('/')
         else:
             self.write({'status': 0, 'message': 'already registered'})
 
