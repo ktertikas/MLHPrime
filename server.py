@@ -7,6 +7,8 @@ import os
 from analysis.LinkClassifier import LinkClassifier
 
 client = MongoClient('localhost', 27017)
+db = client['mlhprime']
+
 # link_classifier = LinkClassifier()
 
 
