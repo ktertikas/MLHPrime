@@ -86,7 +86,7 @@ function get_link_details(link){
 	var data = "link="+link;
 
 	$.ajax({
-	    url : url+"/",
+	    url : url+"/tag",
 	    type: "POST",
 	    data : data,
 	    success: function(data, textStatus, jqXHR)
